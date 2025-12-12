@@ -1,0 +1,9 @@
+app: order-service
+env: prod
+port: 8080
+debug: false
+replicas: 3
+allowed_hosts:
+  - api.example.com
+  - orders.example.com
+timeout_seconds: 5
