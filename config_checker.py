@@ -1,13 +1,19 @@
 import json
+import yaml
 import argparse
-from jsonschema import validate
+from jsonschema import validate #type: ignore
 
 #Define function to load config file
 #Note: Output is a Dictionary
 def load_config(file_path):
     with open(file_path, 'r', encoding="utf-8") as file:
-        return json.load(file)
-
+        if file_path.endswith('.json'):
+            return json.load(file)
+        elif file_path.endswith('.yaml') or file_path.endswith('.yml'):
+            return yaml.safe_load(file)
+        else:
+            raise ValueError("Unsupported file format. Please use JSON or YAML.")
+        
 def main():
     parser = argparse.ArgumentParser(description="Check configuration file for required fields.")
     parser.add_argument("filename", help="Path to the configuration file")
